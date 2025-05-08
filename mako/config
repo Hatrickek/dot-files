@@ -1,0 +1,13 @@
+background-color=#282828
+progress-color=over #504945
+font=monospace 10
+default-timeout=5000
+border-size=2
+border-color=#d79921
+border-radius=0
+
+[app-name=wp-vol]
+default-timeout=2000000
+layer=overlay
+history=0
+anchor=bottom-center
