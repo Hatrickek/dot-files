@@ -109,6 +109,8 @@ in {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = [
+    (pkgs.writeScriptBin "wp-vol"
+      (builtins.readFile /home/halim/.local/bin/wp-vol))
     pkgs.vim
     pkgs.wget
     pkgs.nnn
@@ -119,6 +121,13 @@ in {
     pkgs.htop
     pkgs.gedit
     pkgs.gitkraken
+    pkgs.cloudflare-warp
+    pkgs.ranger
+    pkgs.wireplumber
+    pkgs.libnotify
+    pkgs.playerctl
+    pkgs.renderdoc
+    pkgs.bc
 
     pkgs.git
     pkgs.tealdeer
@@ -152,6 +161,7 @@ in {
     pkgs.cmake
     pkgs.ninja
     pkgs.gnumake
+    unstable-pkgs.shader-slang
 
     # funny
     pkgs.nbsdgames
@@ -274,7 +284,7 @@ in {
 
       settings = {
         main = { font = "JetBrainsMono Nerd Font:size=12"; };
-        colors = { alpha = 0.8; };
+        colors = { alpha = 0.9; };
       };
     };
 
@@ -295,6 +305,12 @@ in {
       autosuggestions.async = true;
 
       syntaxHighlighting.enable = true;
+
+      shellAliases = {
+        cdox = "cd /home/halim/projects/oxylusengine/";
+        ns = "nix-shell --run zsh";
+        cdoxns = "cdox && ns";
+      };
 
       ohMyZsh = {
         enable = true;
