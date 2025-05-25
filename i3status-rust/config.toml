@@ -58,6 +58,13 @@ button = "left"
 cmd = "pavucontrol"
 
 [[block]]
+block = "keyboard_layout"
+driver = "sway"
+[block.mappings]
+"English (US)" = "us"
+"Turkish (N/A)" = "tr"
+
+[[block]]
 block = "time"
 interval = 5
 format = " $timestamp.datetime(f:'%a %d/%m %R') "

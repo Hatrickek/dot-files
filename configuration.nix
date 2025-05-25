@@ -3,6 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
+
 let
   unstable-pkgs = import <nixpkgs-unstable> { config = config.nixpkgs.config; };
 in {
@@ -57,6 +58,11 @@ in {
           command = "${pkgs.sway}/bin/sway --unsupported-gpu";
         };
       };
+    };
+
+    zapret = {
+      enable = true;
+      params = [ "--dpi-desync=fake" "--dpi-desync-ttl=4" ];
     };
   };
 
@@ -120,7 +126,6 @@ in {
     pkgs.btop
     pkgs.htop
     pkgs.gedit
-    pkgs.gitkraken
     pkgs.cloudflare-warp
     pkgs.ranger
     pkgs.wireplumber
@@ -128,6 +133,13 @@ in {
     pkgs.playerctl
     pkgs.renderdoc
     pkgs.bc
+    pkgs.lazygit
+    pkgs.obs-studio
+    pkgs.hardinfo2
+    pkgs.ntfs3g
+    pkgs.libreoffice-qt6-fresh
+    pkgs.stremio
+    pkgs.blender
 
     pkgs.git
     pkgs.tealdeer
@@ -201,6 +213,8 @@ in {
 
     pkgs.vscodium
     pkgs.spotify
+    pkgs.dorion
+    unstable-pkgs.vesktop
 
     pkgs.zsh-autosuggestions
     pkgs.zsh-syntax-highlighting
@@ -277,14 +291,23 @@ in {
       extraOptions = [ "--unsupported-gpu" ];
     };
 
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      vimAlias = true;
+    };
+
     foot = {
       enable = true;
       enableZshIntegration = true;
       theme = "gruvbox-dark";
 
       settings = {
-        main = { font = "JetBrainsMono Nerd Font:size=12"; };
+        # main = { font = "JetBrainsMono Nerd Font:size=12"; };
+        # main = { font = "ComicShannsMono Nerd Font:size=12"; };
+        main = { font = "Iosevka Nerd Font:size=12"; };
         colors = { alpha = 0.9; };
+        # cursor = { color = "00ff00 00ff00"; };
       };
     };
 
@@ -319,12 +342,6 @@ in {
       };
     };
 
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-      vimAlias = true;
-    };
-
     dconf = {
       enable = true;
 
@@ -348,6 +365,8 @@ in {
         unstable-pkgs.vulkan-tools-lunarg
       ];
     };
+
+    steam = { enable = true; };
   };
 
   fonts.packages = with pkgs; [
@@ -357,8 +376,10 @@ in {
     noto-fonts-emoji
     liberation_ttf
 
-    nerdfonts
+    nerd-fonts.iosevka
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.comic-shanns-mono
   ];
 
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.05";
 }
