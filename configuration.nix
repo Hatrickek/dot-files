@@ -69,7 +69,7 @@ in {
   hardware = {
     nvidia = {
       modesetting.enable = true;
-      powerManagement.enable = false;
+      powerManagement.enable = true;
       powerManagement.finegrained = false;
       open = false;
       nvidiaSettings = true;
@@ -140,6 +140,18 @@ in {
     pkgs.libreoffice-qt6-fresh
     pkgs.stremio
     pkgs.blender
+    pkgs.vscodium
+    pkgs.spotify
+    unstable-pkgs.vesktop
+    pkgs.gparted
+    pkgs.weechat
+    unstable-pkgs.satty
+
+    pkgs.mangohud
+    pkgs.protonup-qt
+    pkgs.lutris
+    pkgs.bottles
+    # pkgs.heroic
 
     pkgs.git
     pkgs.tealdeer
@@ -172,22 +184,23 @@ in {
     pkgs.gnumake
     pkgs.cmake
     pkgs.ninja
-    pkgs.gnumake
     unstable-pkgs.shader-slang
 
     # funny
     pkgs.nbsdgames
     pkgs.cmatrix
+    pkgs.fastfetch
 
     # xorg
-    pkgs.xorg.libX11
-    pkgs.xorg.libXi
-    pkgs.xorg.libXScrnSaver
-    pkgs.xorg.libXcursor
-    pkgs.xorg.libXext
-    pkgs.xorg.libXfixes
-    pkgs.xorg.libXrandr
-    pkgs.xsettingsd
+    unstable-pkgs.xorg.libX11
+    unstable-pkgs.xorg.libXi
+    unstable-pkgs.xorg.libXScrnSaver
+    unstable-pkgs.xorg.libXcursor
+    unstable-pkgs.xorg.libXext
+    unstable-pkgs.xorg.libXfixes
+    unstable-pkgs.xorg.libXrandr
+    unstable-pkgs.xorg.libxcb
+    unstable-pkgs.xsettingsd
 
     unstable-pkgs.llvmPackages_20.libcxx.dev
     unstable-pkgs.llvmPackages_20.libcxxClang
@@ -195,7 +208,7 @@ in {
     (unstable-pkgs.llvmPackages_20.clang-tools.override {
       enableLibcxx = true;
     })
-    pkgs.mold
+    unstable-pkgs.mold
 
     # Browsers
     (pkgs.brave.override {
@@ -211,10 +224,7 @@ in {
     unstable-pkgs.vulkan-utility-libraries
     unstable-pkgs.vulkan-extension-layer
 
-    pkgs.vscodium
-    pkgs.spotify
-    pkgs.dorion
-    unstable-pkgs.vesktop
+    unstable-pkgs.shader-slang
 
     pkgs.zsh-autosuggestions
     pkgs.zsh-syntax-highlighting
@@ -246,13 +256,14 @@ in {
       unstable-pkgs.vulkan-loader
       unstable-pkgs.gcc.cc.lib
 
-      pkgs.xorg.libX11
-      pkgs.xorg.libXi
-      pkgs.xorg.libXScrnSaver
-      pkgs.xorg.libXcursor
-      pkgs.xorg.libXext
-      pkgs.xorg.libXfixes
-      pkgs.xorg.libXrandr
+      unstable-pkgs.xorg.libX11
+      unstable-pkgs.xorg.libXi
+      unstable-pkgs.xorg.libXScrnSaver
+      unstable-pkgs.xorg.libXcursor
+      unstable-pkgs.xorg.libXext
+      unstable-pkgs.xorg.libXfixes
+      unstable-pkgs.xorg.libXrandr
+      unstable-pkgs.xorg.libxcb
     ]}";
 
   };
@@ -262,6 +273,7 @@ in {
       [Setings]
       gtk-cursor-theme-name=macOS
       gtk-cursor-theme-size=24
+      gtk-theme-name=Gruvbox-Dark
       gtk-application-prefer-dark-theme=1
       gtk-button-images=1
       gtk-enable-event-sounds=1
@@ -366,7 +378,12 @@ in {
       ];
     };
 
-    steam = { enable = true; };
+    steam = {
+      enable = true;
+      gamescopeSession = { enable = true; };
+    };
+
+    gamemode = { enable = true; };
   };
 
   fonts.packages = with pkgs; [

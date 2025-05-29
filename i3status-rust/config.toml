@@ -1,5 +1,15 @@
 icons_format = "{icon}"
 
+# gruvbox colors
+# bg			= #282828
+# gray			= #928374
+# bg0_h			= #1d2021
+# purple 		= #b16286
+# purple-light 		= #d3869b
+# red 			= #cc241d
+# red-light		= #fb4934
+# orange		= #d65d0e
+# orange-light		= #fe8019
 [theme]
 theme = "gruvbox-dark"
 
@@ -10,13 +20,18 @@ bat = ["|E|", "|_|", "|=|", "|F|"]
 bat_charging = "|^| "
 
 [[block]]
+block = "scratchpad"
+
+[[block]]
 block = "net"
-format = " $icon D:$speed_down.eng(w:4) U:$speed_up.eng(w:4) "
+format = " $icon D:$speed_down.eng(w:2) U:$speed_up.eng(w:2) "
 
 [[block]]
 block = "music"
 format = " $icon {$combo.str(max_w:30) $prev $play $next |}"
 player = "spotify"
+[block.theme_overrides]
+info_bg = "#1d2021"
 
 [[block]]
 block = "custom"
@@ -25,8 +40,6 @@ interval = 600
 
 [[block]]
 block = "cpu"
-info_cpu = 20
-warning_cpu = 50
 critical_cpu = 90
 format = " $icon $utilization "
 
@@ -68,3 +81,5 @@ driver = "sway"
 block = "time"
 interval = 5
 format = " $timestamp.datetime(f:'%a %d/%m %R') "
+[block.theme_overrides]
+idle_bg = "#d3869b"

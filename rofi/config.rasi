@@ -1,0 +1,7 @@
+configuration {
+  modes: [ combi, drun ];
+  combi-modes: [ window, drun ];
+  font: "JetBrainsMono Nerd Font Medium 12";
+  show-icons: true;
+}
+@theme "gruvbox-dark"

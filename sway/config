@@ -7,7 +7,7 @@ set $right l
 # Screens
 output DP-1 mode 2560x1440@165hz
 output HDMI-A-1 mode 1920x1080@60hz transform 270
-output * bg /home/halim/wallpapers/felix-bacher--jEEnRx38wo.jpg fill
+output * bg /home/halim/wallpapers/cat-2.jpg fill
 
 font pango:JetBrainsMono Nerd Font 10
 
@@ -20,18 +20,32 @@ input "type:keyboard" {
 }
 
 set $term foot
-set $menu rofi -show drun
+set $menu rofi -show combi
+set $menufilebrowser rofi -show filebrowser
 set $fileman thunar
 
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec $menu
 bindsym $mod+e exec $fileman
-bindsym $mod+p exec slurp | grim -g - - | wl-copy
+bindsym $mod+m exec $menufilebrowser
 
 floating_modifier $mod normal
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+# Printscreen mode
+set $satty satty -f - --initial-tool=arrow --copy-command=wl-copy --actions-on-escape="save-to-clipboard,exit" --brush-smooth-history-size=5 --disable-notifications
+set $printscreen_mode 'printscreen (r:region, f:full, w:window)'
+mode $printscreen_mode {
+    bindsym r exec swaymsg 'mode "default"' && grim -t ppm -g "$(slurp -d)" - | $satty
+    bindsym f exec swaymsg 'mode "default"' && grim -t ppm - | $satty
+    bindsym w exec swaymsg 'mode "default"' && swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | grim -t ppm -g - - | $satty
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+p mode $printscreen_mode
 
 exec --no-startup-id systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec --no-startup-id dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
