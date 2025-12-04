@@ -528,12 +528,8 @@ require('lazy').setup({
         },
       })
 
-      vim.lsp.config('stylua', {})
-      vim.lsp.config('nixfmt', {})
-
       local ensure_installed = {
-        -- 'stylua',
-        -- 'nixfmt',
+        'stylua',
         'lua_ls',
       }
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -583,7 +579,7 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { lua = true, c = false, cpp = false }
+        local disable_filetypes = { lua = false, c = false, cpp = false }
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
         else
@@ -597,11 +593,11 @@ require('lazy').setup({
         lua = { 'stylua' },
         nix = { 'nixfmt' },
         cpp = { 'clang-format' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+      },
+      formatters = {
+        stylua = {
+          prepend_args = { '--indent-type', 'Spaces', '--indent-width', '2' },
+        },
       },
     },
   },
@@ -718,13 +714,19 @@ require('lazy').setup({
   },
 
   {
+    'blazkowolf/gruber-darker.nvim',
+    priority = 999,
+    config = function() end,
+  },
+
+  {
     'ellisonleao/gruvbox.nvim',
     priority = 1000,
 
     config = function()
       local bg0 = '#111111' -- very very dark
-      local bg1 = "#1d2021" -- very dark
-      local bg2 = "#282828" -- dark
+      local bg1 = '#1d2021' -- very dark
+      local bg2 = '#282828' -- dark
 
       require('gruvbox').setup {
         terminal_colors = true,
@@ -739,7 +741,12 @@ require('lazy').setup({
   },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  {
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = { signs = false },
+  },
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
@@ -784,7 +791,19 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -872,6 +891,3 @@ require('lazy').setup({
     },
   },
 })
-
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
