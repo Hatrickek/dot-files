@@ -1,27 +1,25 @@
-// Zed keymap
-//
-// For information on binding keys, see the Zed
-// documentation: https://zed.dev/docs/key-bindings
-//
-// To see the default key bindings run `zed: open default keymap`
-// from the command palette.
 [
   {
     "context": "Workspace",
     "bindings": {
-      "ctrl-w": "pane::CloseActiveItem"
+      "ctrl-w": "pane::CloseActiveItem",
     },
   },
   {
     "context": "Editor",
     "bindings": {
-      "ctrl-w": "pane::CloseActiveItem"
-    }
+      "ctrl-w": "pane::CloseActiveItem",
+    },
   },
   {
     "context": "Editor && vim_mode == insert",
+    "bindings": {},
+  },
+  {
+    "context": "Editor && vim_mode == visual && !VimWaiting && !VimObject",
     "bindings": {
-      // "j k": "vim::NormalBefore"
+      "p": ["vim::Paste", { "preserve_clipboard": true }],
     },
   },
 ]
+
